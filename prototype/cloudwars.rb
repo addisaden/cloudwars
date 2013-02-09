@@ -24,7 +24,7 @@ module Cloudwars
       def initialize
         # Setup Spielfeldbreite
         loop do
-          print "Spielfeldbreite: (8-32) "
+          print "Spielfeldbreite:" + " (8-32) ".color(:blue)
           @spielfeldbreite = gets.strip.to_i
           break if (8..32).include? @spielfeldbreite
           puts "Ihre Angabe liegt nicht zwischen 8 und 32"
@@ -50,6 +50,8 @@ end
 
 spielfeld = Array.new(8, Array.new(8, 0))
 
-puts ("Hallo " + "Welt".bright).color(:green) + (" dies ist ein " + "Test".bright).color(:red)
+puts
+puts "Willkommen zu ".bright.color(:blue) + 'Cloud '.bright.color(:green) + 'Wars'.bright.color(:red)
+puts
 
-spiel = Cloudwars::Prototype::Spielfeld.new
+Cloudwars::Prototype::Spielfeld.new
