@@ -4,6 +4,8 @@ require "rainbow"
 
 module Cloudwars
   module Prototype
+    Spielfeldwahl = Struct.new(:x, :y)
+
     class Spieler
       attr_reader :name, :color, :towers, :move, :last_move
       def initialize(name, color, move)
@@ -32,6 +34,7 @@ module Cloudwars
 
         @spielfeld = Array.new(@spielfeldbreite, Array.new(@spielfeldbreite, 0))
         @towers = ((@spielfeldbreite**2)/2 + 1).to_i
+        @runde = 1
 
         # setup spieler
         print "Spieler 1: "
@@ -43,12 +46,44 @@ module Cloudwars
         @spieler_2 = gets.strip
         @spieler_2 = "Spieler 2" if @spieler_2.empty? or @spieler_2 == @spieler_1.name
         @spieler_2 = Spieler.new @spieler_2, :red, -1
+
+        start_game
+      end
+
+      private
+      def start_game
+        player = nil
+        # Hauptspiel-Loop
+        loop do
+          if player == nil then
+            player = @spieler_1
+          else
+            player = other(player)
+          end
+
+          # Spieler-Loop
+          loop do
+            puts "Runde: " + @runde.to_i.to_s.bright
+            player_move = player.go(@spielfeld, other(player))
+            break
+          end
+
+          # Testwinner and add half round
+          @runde += 0.5
+          break
+        end
+      end
+
+      def other(this)
+        if this == @spieler_1 then
+          @spieler_2
+        else
+          @spieler_1
+        end
       end
     end
   end
 end
-
-spielfeld = Array.new(8, Array.new(8, 0))
 
 puts
 puts "Willkommen zu ".bright.color(:blue) + 'Cloud '.bright.color(:green) + 'Wars'.bright.color(:red)
