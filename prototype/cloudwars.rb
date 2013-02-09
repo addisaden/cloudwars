@@ -81,15 +81,19 @@ module Cloudwars
             player_move = player.go(@spielfeld, other(player))
             begin
               raise NoSpielfeldwahl unless player_move.is_a? Spielfeldwahl
+              raise NoSpielfeld unless @spielfeld[player_move.y] && @spielfeld[player_move.y][player_move.x]
+              raise WrongMove unless (-3..3).include?(@spielfeld[player_move.y][player_move.x])
             rescue WrongMove
               puts "SYSTEM: Das Feld kann nicht verändert werden, bitte wählen Sie ein anderes.".bright.color(:red)
+              next
             rescue NoSpielfeld
               puts "SYSTEM: Das gewählte Spielfeld liegt ausserhalb der gültigen Felder, bitte wäheln Sie ein anderes".bright.color(:red)
+              next
             rescue NoSpielfeldwahl
               puts "SYSTEM: Der Spieler muss eine Spielfeldwahl treffen".bright.color(:red)
-            ensure
-              # next
+              next
             end
+            # set the new field for player.
             break
           end
 
