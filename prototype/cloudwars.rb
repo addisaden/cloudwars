@@ -19,7 +19,17 @@ module Cloudwars
 
       # return the playerinput
       def go(spielfeld, gegner)
+        Spielfeldwahl.new(0,0)
       end
+    end
+
+    class NoSpielfeldwahl < Exception
+    end
+
+    class NoSpielfeld < Exception
+    end
+
+    class WrongMove < Exception
     end
 
     class Spielfeld
@@ -65,6 +75,17 @@ module Cloudwars
           loop do
             puts "Runde: " + @runde.to_i.to_s.bright
             player_move = player.go(@spielfeld, other(player))
+            begin
+              raise NoSpielfeldwahl unless player_move.is_a? Spielfeldwahl
+            rescue WrongMove
+              puts "SYSTEM: Das Feld kann nicht verändert werden, bitte wählen Sie ein anderes.".bright.color(:red)
+            rescue NoSpielfeld
+              puts "SYSTEM: Das gewählte Spielfeld liegt ausserhalb der gültigen Felder, bitte wäheln Sie ein anderes".bright.color(:red)
+            rescue NoSpielfeldwahl
+              puts "SYSTEM: Der Spieler muss eine Spielfeldwahl treffen".bright.color(:red)
+            ensure
+              # next
+            end
             break
           end
 
