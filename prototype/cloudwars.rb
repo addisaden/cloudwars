@@ -1,17 +1,18 @@
 # encoding: utf-8
 
 require "rainbow"
-require "pry"
 
 module Cloudwars
   module Prototype
     class Spieler
-      attr_reader :name, :color, :towers, :move
+      attr_reader :name, :color, :towers, :move, :last_move
       def initialize(name, color, move)
         @name = name
         @color = color
         @towers = 0
         @move = move
+
+        @last_move = nil
       end
 
       # return the playerinput
@@ -42,8 +43,6 @@ module Cloudwars
         @spieler_2 = gets.strip
         @spieler_2 = "Spieler 2" if @spieler_2.empty? or @spieler_2 == @spieler_1.name
         @spieler_2 = Spieler.new @spieler_2, :red, -1
-
-        @last_move = nil
       end
     end
   end
@@ -54,4 +53,3 @@ spielfeld = Array.new(8, Array.new(8, 0))
 puts ("Hallo " + "Welt".bright).color(:green) + (" dies ist ein " + "Test".bright).color(:red)
 
 spiel = Cloudwars::Prototype::Spielfeld.new
-binding.pry
