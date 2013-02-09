@@ -34,6 +34,10 @@ module Cloudwars
 
     class Spielfeld
       def initialize
+        puts
+        puts "Willkommen zu ".bright.color(:blue) + 'Cloud '.bright.color(:green) + 'Wars'.bright.color(:red)
+        puts
+
         # Setup Spielfeldbreite
         loop do
           print "Spielfeldbreite:" + " (8-32) ".color(:blue)
@@ -106,8 +110,4 @@ module Cloudwars
   end
 end
 
-puts
-puts "Willkommen zu ".bright.color(:blue) + 'Cloud '.bright.color(:green) + 'Wars'.bright.color(:red)
-puts
-
-Cloudwars::Prototype::Spielfeld.new
+# Cloudwars::Prototype::Spielfeld.new
