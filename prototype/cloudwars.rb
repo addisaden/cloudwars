@@ -25,7 +25,7 @@ module Cloudwars
       def go(spielfeld, gegner)
         print_spielfeld(spielfeld, gegner)
 
-        puts "--- X : SPALTE --- Y : ZEILE ---"
+        # puts "--- X : SPALTE --- Y : ZEILE ---"
         print "#{ name.capitalize } ist am Zug (x y): ".color(color)
         x, y = *gets.split.collect { |n| n.to_i }
         return Spielfeldwahl.new(x,y)
@@ -45,6 +45,7 @@ module Cloudwars
         spielfeld.count.times do |i|
           print "#{ i%10 } "
         end
+	print "_X_"
         puts
 
         spielfeld.each_with_index do |zeile, index_y|
@@ -61,6 +62,7 @@ module Cloudwars
           end
           puts
         end
+	puts "_Y_"
       end
     end
 
