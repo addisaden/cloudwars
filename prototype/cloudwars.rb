@@ -17,6 +17,10 @@ module Cloudwars
         @last_move = nil
       end
 
+      def add_tower
+        @towers += 1
+      end
+
       # return the playerinput
       def go(spielfeld, gegner)
         Spielfeldwahl.new(0,0)
@@ -81,7 +85,31 @@ module Cloudwars
                 puts "SYSTEM: Das Feld kann nicht verändert werden, bitte wählen Sie ein anderes.".bright.color(:red)
                 next              
             end
-            # set the new field for player.
+
+            # aliases
+            px = player_move.x
+            py = player_move.y
+
+            # set the move for player
+            [-1, 0, 1].each do |y|
+              next if @spielfeld[y + py].nil?
+              [-1, 0, 1].each do |x|
+                next if @spielfeld[y + py][x + px].nil?
+
+                # if the middle filed of the move do twice
+                ( x == 0 && y == 0 ? 2 : 1 ).times do
+                  # add one (direction == player.move = 1 / -1)
+                  next unless (-3..3).include?( @spielfeld[y + py][x + px] )
+                  @spielfeld[y + py][x + px] += player.move
+
+                  # add a tower to the player
+                  if @spielfeld[y + py][x + px] == 4 * player.move && @towers > 0 then
+                    player.add_tower
+                    @towers -= 1
+                  end
+                end
+              end
+            end
             break
           end
 
