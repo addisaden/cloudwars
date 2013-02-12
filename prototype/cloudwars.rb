@@ -34,6 +34,7 @@ module Cloudwars
       def print_spielfeld(spielfeld, gegner)
         puts "#{ name } : #{ towers }".bright.color( color )
         puts "#{ gegner.name } : #{ gegner.towers }".color( gegner.color )
+        puts
 
         print "  "
         spielfeld.count.times do |i|
@@ -63,6 +64,7 @@ module Cloudwars
           puts
         end
         puts "_Y_"
+        puts
       end
     end
 
@@ -114,6 +116,7 @@ module Cloudwars
 
           # Spieler-Loop
           loop do
+            puts
             puts "Runde: " + @runde.to_i.to_s.bright
             puts "Towers: #{ @towers }".bright.color(:blue)
             player_move = player.go(@spielfeld, other(player))
@@ -160,6 +163,7 @@ module Cloudwars
             end
             break
           end
+          3.times { puts }
 
           # Testwinner and add half round
           if @towers > 0 && (@spieler_1.towers - @spieler_2.towers).abs <= @towers then
@@ -171,15 +175,19 @@ module Cloudwars
         end
         if @spieler_1.towers == @spieler_2.towers then
           puts "Es ist unentschieden.".bright.color(:blue)
+          puts
           @spieler_1.print_spielfeld(@spielfeld, @spieler_2)
         elsif @spieler_1.towers > @spieler_2.towers then
           puts "#{ @spieler_1.name.capitalize } hat gewonnen.".color( @spieler_1.color )
+          puts
           @spieler_1.print_spielfeld(@spielfeld, @spieler_2)
         elsif @spieler_2.towers > @spieler_1.towers then
           puts "#{ @spieler_2.name.capitalize } hat gewonnen.".color( @spieler_2.color )
+          puts
           @spieler_2.print_spielfeld(@spielfeld, @spieler_1)
         else
           puts "Das Spiel ist Zuende."
+          puts
         end
       end
 
