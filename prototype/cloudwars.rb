@@ -73,6 +73,21 @@ module Cloudwars
         puts
         puts "Willkommen zu ".bright.color(:blue) + 'Cloud '.bright.color(:green) + 'Wars'.bright.color(:red)
         puts
+        puts "In Addi's Cloudwars geht es mehr Felder als der Gegner"
+        puts "auf dem Spielfeld zu erobern. Um ein Spielfeld zu"
+        puts "erobern muss man 4 Punkte auf einem Feld erreichen."
+        puts "Macht ein Spieler einen Zug bekommt er auf dem Feld"
+        puts "zwei seiner Punkte und auf den anliegenden Feldern"
+        puts "jeweils einen Punkt. Sind gegnerische Punkte auf"
+        puts "einem Feld, werden die eigenen Punkte von dem Gegner"
+        puts "abgezogen."
+        puts "Jedes eroberte Feld wir mit einem 'X' gekennzeichnet"
+        puts "und zählt als Tower. Pro Spiel gibt es eine maximal zu"
+        puts "erreichende Toweranzahl, welches die Hälfte des Spiel-"
+        puts "feldes plus ein weiters ist."
+        puts
+        puts "Viel Spaß"
+        puts
 
         # Setup Spielfeldbreite
         loop do
@@ -122,15 +137,19 @@ module Cloudwars
             player_move = player.go(@spielfeld, other(player))
             case              
               when ! player_move.is_a?(Spielfeldwahl) then
+                puts
                 puts "SYSTEM: Der Spieler muss eine Spielfeldwahl treffen".bright.color(:red)
                 next
               when player_move.x.nil? || player_move.y.nil? then
-                puts "SYSTEM: Es wurde nur eine Zahl eingegeben"
+                puts
+                puts "SYSTEM: Es wurde nur eine Zahl eingegeben".bright.color(:red)
                 next
               when ! (@spielfeld[player_move.y] && @spielfeld[player_move.y][player_move.x]) then
+                puts
                 puts "SYSTEM: Das gewählte Spielfeld liegt ausserhalb der gültigen Felder, bitte wäheln Sie ein anderes".bright.color(:red)
                 next
               when ! (-3..3).include?(@spielfeld[player_move.y][player_move.x]) then
+                puts
                 puts "SYSTEM: Das Feld kann nicht verändert werden, bitte wählen Sie ein anderes.".bright.color(:red)
                 next              
             end
