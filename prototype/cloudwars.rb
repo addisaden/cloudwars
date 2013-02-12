@@ -45,7 +45,7 @@ module Cloudwars
         spielfeld.count.times do |i|
           print "#{ i%10 } "
         end
-	print "_X_"
+        print "_X_"
         puts
 
         spielfeld.each_with_index do |zeile, index_y|
@@ -62,7 +62,7 @@ module Cloudwars
           end
           puts
         end
-	puts "_Y_"
+        puts "_Y_"
       end
     end
 
@@ -175,7 +175,7 @@ module Cloudwars
         elsif @spieler_1.towers > @spieler_2.towers then
           puts "#{ @spieler_1.name.capitalize } hat gewonnen.".color( @spieler_1.color )
           @spieler_1.print_spielfeld(@spielfeld, @spieler_2)
-        elsif @spieler_2.towers < @spieler_1.towers then
+        elsif @spieler_2.towers > @spieler_1.towers then
           puts "#{ @spieler_2.name.capitalize } hat gewonnen.".color( @spieler_2.color )
           @spieler_2.print_spielfeld(@spielfeld, @spieler_1)
         else
